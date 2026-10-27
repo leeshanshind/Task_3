@@ -14,17 +14,19 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @DisplayName("Раздел «Конструктор»")
 class ConstructorTest extends BaseTest {
 
-    // «Булки» выбраны по умолчанию, поэтому для проверки перехода к ним сначала уходим на «Соусы»
+    // по уже выбранной вкладке клик перехватывает контейнер вкладок, а «Булки» выбраны по умолчанию,
+    // поэтому сначала всегда переходим на другую, невыбранную вкладку
     @ParameterizedTest(name = "с вкладки «{0}» на вкладку «{1}»")
     @CsvSource({
             "Соусы, Булки",
-            "Булки, Соусы",
-            "Булки, Начинки"
+            "Начинки, Соусы",
+            "Соусы, Начинки"
     })
     @DisplayName("Работает переход к разделу конструктора")
     @Description("После клика по вкладке она становится выбранной")
     void tabClickSelectsSection(String fromTab, String toTab) {
         MainPage mainPage = new MainPage(driver).open().clickTab(fromTab);
+        assertTrue(mainPage.isTabSelected(fromTab), "Не выбрана исходная вкладка «" + fromTab + "»");
 
         mainPage.clickTab(toTab);
 
