@@ -10,13 +10,14 @@ Google Chrome:
 mvn clean test
 ```
 
-Яндекс.Браузер (`yandex.version` — major-версия Chromium, на которой собран Яндекс.Браузер):
+Яндекс.Браузер:
 
 ```
-mvn test -Dbrowser=yandex -Dyandex.version=<major>
+mvn test -Dbrowser=yandex
 ```
 
-Путь к браузеру по умолчанию — `/Applications/Yandex.app/Contents/MacOS/Yandex`, другой можно задать через `-Dyandex.binary=<path>`.
+По умолчанию берётся chromedriver под Chromium 152 (Яндекс.Браузер 26.10) и браузер из `/Applications/Yandex.app/Contents/MacOS/Yandex`.
+Для другой версии или пути: `-Dyandex.version=<major-версия Chromium> -Dyandex.binary=<путь>`.
 
 Отчёт Allure:
 

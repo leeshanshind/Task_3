@@ -18,6 +18,8 @@ import static org.apache.http.HttpStatus.SC_OK;
  */
 public abstract class BaseTest {
     private static final String YANDEX_BINARY = "/Applications/Yandex.app/Contents/MacOS/Yandex";
+    // Яндекс.Браузер 26.10 собран на Chromium 152
+    private static final String YANDEX_CHROMIUM_VERSION = "152";
 
     protected final UserClient userClient = new UserClient();
     protected WebDriver driver;
@@ -35,11 +37,9 @@ public abstract class BaseTest {
                 break;
             case "yandex":
                 // Яндекс.Браузер работает на Chromium, поэтому нужен chromedriver под его версию Chromium
-                String yandexVersion = System.getProperty("yandex.version");
-                if (yandexVersion == null) {
-                    throw new IllegalStateException("Укажите версию Chromium Яндекс.Браузера: -Dyandex.version=<major>");
-                }
-                WebDriverManager.chromedriver().browserVersion(yandexVersion).setup();
+                WebDriverManager.chromedriver()
+                        .browserVersion(System.getProperty("yandex.version", YANDEX_CHROMIUM_VERSION))
+                        .setup();
                 options.setBinary(System.getProperty("yandex.binary", YANDEX_BINARY));
                 break;
             default:
